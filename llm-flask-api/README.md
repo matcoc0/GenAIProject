@@ -38,7 +38,7 @@ This option uses Docker Compose to run Ollama, the Flask API, and ngrok in conta
 3. **Start all services:**
    
    ```bash
-   docker-compose up --build -d
+   docker compose up --build -d
    ```
    
    This will start:
