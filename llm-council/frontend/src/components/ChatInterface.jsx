@@ -9,6 +9,8 @@ export default function ChatInterface({
   conversation,
   onSendMessage,
   isLoading,
+  theme,
+  onToggleTheme,
 }) {
   const [input, setInput] = useState('');
   const messagesEndRef = useRef(null);
@@ -40,6 +42,9 @@ export default function ChatInterface({
   if (!conversation) {
     return (
       <div className="chat-interface">
+        <button className="theme-toggle-top-right" onClick={onToggleTheme}>
+          {theme === 'light' ? '🌙' : '☀️'}
+        </button>
         <div className="empty-state">
           <h2>Welcome to LLM Council</h2>
           <p>Create a new conversation to get started</p>
@@ -50,6 +55,9 @@ export default function ChatInterface({
 
   return (
     <div className="chat-interface">
+      <button className="theme-toggle-top-right" onClick={onToggleTheme}>
+        {theme === 'light' ? '🌙' : '☀️'}
+      </button>
       <div className="messages-container">
         {conversation.messages.length === 0 ? (
           <div className="empty-state">
