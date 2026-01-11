@@ -26,7 +26,14 @@ export default function Stage1({ responses }) {
       </div>
 
       <div className="tab-content">
-        <div className="model-name">{responses[activeTab].model}</div>
+        <div className="model-header">
+          <div className="model-name">{responses[activeTab].model}</div>
+          {responses[activeTab].duration_seconds !== undefined && (
+            <div className="model-duration">
+              ⏱️ {responses[activeTab].duration_seconds}s
+            </div>
+          )}
+        </div>
         <div className="response-text markdown-content">
           <ReactMarkdown>{responses[activeTab].response}</ReactMarkdown>
         </div>

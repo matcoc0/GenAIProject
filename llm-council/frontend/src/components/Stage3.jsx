@@ -10,8 +10,15 @@ export default function Stage3({ finalResponse }) {
     <div className="stage stage3">
       <h3 className="stage-title">Stage 3: Final Council Answer</h3>
       <div className="final-response">
-        <div className="chairman-label">
-          Chairman: {finalResponse.model}
+        <div className="model-header">
+          <div className="chairman-label">
+            Chairman: {finalResponse.model}
+          </div>
+          {finalResponse.duration_seconds !== undefined && (
+            <div className="model-duration">
+              ⏱️ {finalResponse.duration_seconds}s
+            </div>
+          )}
         </div>
         <div className="final-text markdown-content">
           <ReactMarkdown>{finalResponse.response}</ReactMarkdown>

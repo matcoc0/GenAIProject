@@ -1,6 +1,7 @@
 """Flask API client for making LLM requests."""
 
 import httpx
+import time
 from typing import List, Dict, Any, Optional
 
 
@@ -18,7 +19,7 @@ async def query_model(
         timeout: Request timeout in seconds (uses model config or 180s default)
 
     Returns:
-        Response dict with 'content', or None if failed
+        Response dict with 'content' and 'duration_seconds', or None if failed
     """
     # Use model-specific timeout if available, otherwise use provided or default
     if timeout is None:
@@ -35,6 +36,8 @@ async def query_model(
         "messages": messages,
     }
 
+    start_time = time.time()
+    
     try:
         async with httpx.AsyncClient(timeout=timeout) as client:
             response = await client.post(
@@ -42,6 +45,9 @@ async def query_model(
                 headers=headers,
                 json=payload
             )
+            end_time = time.time()
+            duration = end_time - start_time
+            
             response.raise_for_status()
 
             data = response.json()
@@ -49,11 +55,15 @@ async def query_model(
             content = data['message']['content']
 
             return {
-                'content': content
+                'content': content,
+                'duration_seconds': round(duration, 2)
             }
 
     except Exception as e:
+        end_time = time.time()
+        duration = end_time - start_time
         print(f"Error querying model {model_config.get('model_name', 'unknown')} at {flask_url}: {e}")
+        print(f"Request took {duration:.2f}s before failing")
         import traceback
         traceback.print_exc()
         return None

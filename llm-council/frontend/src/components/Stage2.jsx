@@ -63,8 +63,15 @@ export default function Stage2({ rankings, labelToModel, aggregateRankings }) {
       </div>
 
       <div className="tab-content">
-        <div className="ranking-model">
-          {rankings[activeTab].model}
+        <div className="model-header">
+          <div className="ranking-model">
+            {rankings[activeTab].model}
+          </div>
+          {rankings[activeTab].duration_seconds !== undefined && (
+            <div className="model-duration">
+              ⏱️ {rankings[activeTab].duration_seconds}s
+            </div>
+          )}
         </div>
         <div className="ranking-content markdown-content">
           <ReactMarkdown>
