@@ -83,13 +83,13 @@ deploy:
 #### Stopping the Services
 
 ```bash
-docker-compose down
+docker compose down
 ```
 
 To also remove the Ollama storage volume:
 
 ```bash
-docker-compose down -v
+docker compose down -v
 ```
 
 ### Option 2: Local Python Setup
