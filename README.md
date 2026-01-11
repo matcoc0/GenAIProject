@@ -27,7 +27,7 @@ GenAIProject/
 │   └── data/             # Conversation storage
 │
 └── llm-flask-api/        # Flask API wrapper for local Ollama models
-    └── api.py            # Flask server exposing LLM endpoints
+    └── app.py            # Flask server exposing LLM endpoints
 ```
 
 ### Component Details
@@ -107,7 +107,7 @@ See [llm-flask-api/README.md](llm-flask-api/README.md) for detailed setup and us
    pip install -r requirements.txt
    
    # Run the Flask API
-   python api.py
+   python app.py
    
    # In another terminal, expose with ngrok
    ngrok http 5000

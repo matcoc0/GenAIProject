@@ -14,7 +14,7 @@ This option uses Docker Compose to run Ollama, the Flask API, and ngrok in conta
 - Docker and Docker Compose installed
 - ngrok account (for tunneling)
 - python 3.11 or higher
-- requirements file, api.py, docker-compose and DockerFile in a same folder
+- requirements file, app.py, docker-compose and DockerFile in a same folder
 
 #### Steps
 
@@ -114,10 +114,10 @@ MODEL_NAME=your-ollama-model-name
 
 #### 3. Running the Flask API
 
-1. Start the Flask API by running the `api.py` file:
+1. Start the Flask API by running the `app.py` file:
 
    ```bash
-   python api.py
+   python app.py
    ```
 
 2. Use `ngrok` to expose your local server to the internet:
