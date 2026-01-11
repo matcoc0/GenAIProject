@@ -281,7 +281,7 @@ Title:"""
     messages = [{"role": "user", "content": title_prompt}]
 
     # Use the chairman model for title generation
-    response = await query_model(CHAIRMAN_MODEL, messages, timeout=30.0)
+    response = await query_model(CHAIRMAN_MODEL, messages, timeout=300.0)
 
     if response is None:
         # Fallback to a generic title
