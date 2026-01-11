@@ -106,4 +106,4 @@ def list_models():
 if __name__ == '__main__':
     print(f"Using Ollama at: {OLLAMA_BASE_URL}")
     print(f"Default model: {MODEL_NAME}")
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True, use_reloader=False)
