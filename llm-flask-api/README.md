@@ -46,7 +46,7 @@ This option uses Docker Compose to run Ollama, the Flask API, and ngrok in conta
    - Flask API on port 5000
    - ngrok tunnel (accessible at http://localhost:4040 for inspection)
 
-4. **Pull the Ollama model:**
+4. **Pull the Ollama model if there is any problem with the automation:**
    
    ```bash
    docker exec -it ollama_backend ollama pull llama3.2:1b
