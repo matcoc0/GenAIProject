@@ -13,6 +13,8 @@ This option uses Docker Compose to run Ollama, the Flask API, and ngrok in conta
 #### Prerequisites
 - Docker and Docker Compose installed
 - ngrok account (for tunneling)
+- python 3.11 or higher
+- requirements file, api.py, docker-compose and DockerFile in a same folder
 
 #### Steps
 
