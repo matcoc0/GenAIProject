@@ -59,6 +59,10 @@ This option uses Docker Compose to run Ollama, the Flask API, and ngrok in conta
    Visit http://localhost:4040 to see your ngrok public URL, or check the logs:
    
    ```bash
+   docker logs -f flask_llm_api
+   ```
+   or
+   ```bash
    docker logs ngrok_tunnel
    ```
 
