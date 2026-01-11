@@ -1,5 +1,12 @@
 # GenAI Project - LLM Council System
 
+<ins>CDOF2 - Team members:</ins>
+- Mathieu COWAN
+- Julien DE VOS
+- Eliott COUTAZ
+- Sacha CROCHET
+- Adrien DE MAILLY NESLE
+
 This project implements a multi-stage LLM orchestration system that leverages multiple large language models to provide more accurate and insightful responses through collaborative deliberation. The system consists of two main components: the **LLM Council** application and the **LLM Flask API** wrappers.
 
 ## Overview
