@@ -108,6 +108,8 @@ Now provide your evaluation and ranking:"""
                 "ranking": full_text,
                 "parsed_ranking": parsed
             })
+        else:
+            print(f"WARNING: Model {model} returned None for Stage 2 ranking")
 
     return stage2_results, label_to_model
 

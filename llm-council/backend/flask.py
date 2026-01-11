@@ -7,7 +7,7 @@ from typing import List, Dict, Any, Optional
 async def query_model(
     model_config: Dict[str, str],
     messages: List[Dict[str, str]],
-    timeout: float = 120.0
+    timeout: float = None  # Will use model-specific timeout or default
 ) -> Optional[Dict[str, Any]]:
     """
     Query a single model via Flask API.
@@ -15,11 +15,15 @@ async def query_model(
     Args:
         model_config: Dict with 'model_name' and 'flask_url' keys
         messages: List of message dicts with 'role' and 'content'
-        timeout: Request timeout in seconds
+        timeout: Request timeout in seconds (uses model config or 180s default)
 
     Returns:
         Response dict with 'content', or None if failed
     """
+    # Use model-specific timeout if available, otherwise use provided or default
+    if timeout is None:
+        timeout = model_config.get('timeout', 180.0)
+    
     flask_url = model_config['flask_url']
     chat_endpoint = f"{flask_url}/chat"
     
@@ -49,7 +53,9 @@ async def query_model(
             }
 
     except Exception as e:
-        print(f"Error querying model at {flask_url}: {e}")
+        print(f"Error querying model {model_config.get('model_name', 'unknown')} at {flask_url}: {e}")
+        import traceback
+        traceback.print_exc()
         return None
 
 

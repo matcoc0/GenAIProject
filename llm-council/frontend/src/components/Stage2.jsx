@@ -21,9 +21,28 @@ export default function Stage2({ rankings, labelToModel, aggregateRankings }) {
     return null;
   }
 
+  // Get all models that provided responses in Stage 1
+  const allModels = labelToModel ? Object.values(labelToModel) : [];
+  const rankingModels = rankings.map(r => r.model);
+  const missingModels = allModels.filter(model => !rankingModels.includes(model));
+
   return (
     <div className="stage stage2">
       <h3 className="stage-title">Stage 2: Peer Rankings</h3>
+
+      {missingModels.length > 0 && (
+        <div className="warning-message" style={{
+          backgroundColor: '#fff3cd',
+          border: '1px solid #ffc107',
+          padding: '12px',
+          borderRadius: '4px',
+          marginBottom: '16px'
+        }}>
+          <strong>⚠️ Note:</strong> The following models did not provide rankings: {missingModels.join(', ')}
+          <br />
+          <small>This may be due to timeout, connectivity issues, or response format problems.</small>
+        </div>
+      )}
 
       <h4>Raw Evaluations</h4>
       <p className="stage-description">
