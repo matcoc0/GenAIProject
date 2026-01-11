@@ -1,0 +1,39 @@
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama_backend
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_storage:/root/.ollama 
+    # if nvidia gpu available uncomment this part
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
+
+  llm-api:
+    build: .
+    container_name: flask_llm_api
+    ports:
+      - "5000:5000"
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - MODEL_NAME=llama3.2:1b #Change model needed here
+    depends_on:
+      - ollama
+  ngrok:
+    image: ngrok/ngrok:latest
+    container_name: ngrok_tunnel
+    ports:
+      - "4040:4040" 
+    command: http llm-api:5000 
+    environment:
+      - NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN}  # put it in the env variables if need be
+    depends_on:
+      - llm-api
+volumes:
+  ollama_storage:
