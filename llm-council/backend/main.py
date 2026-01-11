@@ -11,6 +11,8 @@ import asyncio
 
 from . import storage
 from .council import run_full_council, generate_conversation_title, stage1_collect_responses, stage2_collect_rankings, stage3_synthesize_final, calculate_aggregate_rankings
+from .config import COUNCIL_MODELS, CHAIRMAN_MODEL
+from .flask import check_all_models_health
 
 app = FastAPI(title="LLM Council API")
 
@@ -54,6 +56,21 @@ class Conversation(BaseModel):
 async def root():
     """Health check endpoint."""
     return {"status": "ok", "service": "LLM Council API"}
+
+
+@app.get("/api/health")
+async def health_check():
+    """Check health status of all LLM endpoints."""
+    # Combine all models to check
+    all_models = COUNCIL_MODELS + [CHAIRMAN_MODEL]
+    
+    # Check health of all models
+    health_status = await check_all_models_health(all_models)
+    
+    return {
+        "models": health_status,
+        "chairman": CHAIRMAN_MODEL['model_name']
+    }
 
 
 @app.get("/api/conversations", response_model=List[ConversationMetadata])

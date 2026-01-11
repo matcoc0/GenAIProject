@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Sidebar from './components/Sidebar';
 import ChatInterface from './components/ChatInterface';
+import HealthStatus from './components/HealthStatus';
 import { api } from './api';
 import './App.css';
 
@@ -210,6 +211,7 @@ function App() {
         theme={theme}
         onToggleTheme={toggleTheme}
       />
+      <HealthStatus />
     </div>
   );
 }

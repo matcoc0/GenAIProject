@@ -12,16 +12,16 @@ COUNCIL_MODELS = [
         "flask_url": os.getenv("CHAIRMAN_URL"),
         "timeout": 180.0
     },
-    # {
-    #     "model_name": "gemma3:4b",
-    #     "flask_url": os.getenv("GEMMA_URL"),
-    #     "timeout": 180.0
-    # },
-    # {
-    #     "model_name": "qwen2.5:1.5b",
-    #     "flask_url": os.getenv("QWEN_URL"),
-    #     "timeout": 180.0
-    # },
+    {
+        "model_name": "gemma3:4b",
+        "flask_url": os.getenv("GEMMA_URL"),
+        "timeout": 180.0
+    },
+    {
+        "model_name": "qwen2.5:1.5b",
+        "flask_url": os.getenv("QWEN_URL"),
+        "timeout": 180.0
+    },
     # {
     #     "model_name": "LLM4",
     #     "flask_url": os.getenv("LLM4_URL")

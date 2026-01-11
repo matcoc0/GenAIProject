@@ -1,0 +1,144 @@
+.health-status {
+  position: fixed;
+  bottom: 16px;
+  left: 16px;
+  z-index: 1000;
+}
+
+.health-status-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--text-primary);
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.health-status-toggle:hover {
+  background: var(--bg-hover);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.status-indicator {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.status-indicator.online {
+  color: #22c55e;
+}
+
+.status-indicator.partial {
+  color: #f59e0b;
+}
+
+.status-text {
+  font-family: monospace;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.health-status-panel {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  margin-bottom: 8px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-primary);
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  min-width: 280px;
+  max-width: 400px;
+  animation: slideUp 0.2s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.health-status-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-primary);
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.health-status-list {
+  padding: 8px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.health-status-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.health-status-item:hover {
+  background: var(--bg-hover);
+}
+
+.model-status-indicator {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.model-status-indicator.online {
+  color: #22c55e;
+}
+
+.model-status-indicator.offline {
+  color: #ef4444;
+}
+
+.model-name {
+  flex: 1;
+  font-family: monospace;
+  font-size: 13px;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.chairman-badge {
+  font-size: 10px;
+  padding: 2px 6px;
+  background: var(--accent-primary);
+  color: var(--text-white);
+  border-radius: 3px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.model-status {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.model-status.online {
+  color: #22c55e;
+}
+
+.model-status.offline {
+  color: #ef4444;
+}
