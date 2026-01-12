@@ -34,7 +34,8 @@ async def query_model(
     start_time = time.time()
     
     try:
-        async with httpx.AsyncClient() as client:
+        # Set timeout to None to let Flask API handle its own timeout
+        async with httpx.AsyncClient(timeout=None) as client:
             response = await client.post(
                 chat_endpoint,
                 headers=headers,

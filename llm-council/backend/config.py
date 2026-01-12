@@ -18,10 +18,6 @@ COUNCIL_MODELS = [
     {
         "model_name": "qwen2.5:1.5b",
         "flask_url": os.getenv("QWEN_URL")
-    },
-    {
-        "model_name": "ministral-3:3b",
-        "flask_url": os.getenv("MISTRAL_URL")
     }
 ]
 
