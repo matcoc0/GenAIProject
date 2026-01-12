@@ -17,12 +17,15 @@ services:
 
   llm-api:
     build: .
+
     container_name: flask_llm_api
     ports:
       - "5000:5000"
     environment:
+      - OLLAMA_NUM_THREADS=16 #change for actual number of cores
+      - OLLAMA_KEEP_ALIVE=-1
       - OLLAMA_BASE_URL=http://ollama:11434
-      - MODEL_NAME=llama3.2:1b #Change model needed here
+      - MODEL_NAME=deepseek-r1:7b #Change model needed here
     depends_on:
       - ollama
   ngrok:
@@ -30,7 +33,7 @@ services:
     container_name: ngrok_tunnel
     ports:
       - "4040:4040" 
-    command: http llm-api:5000 
+    command: http --domain=${NGROK_DOMAIN} llm-api:5000 --log=stdout
     environment:
       - NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN}  # put it in the env variables if need be
     depends_on:
