@@ -1,6 +1,3 @@
 flask
 requests
 python-dotenv
-os
-time
-threading
