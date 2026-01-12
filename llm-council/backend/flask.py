@@ -7,8 +7,7 @@ from typing import List, Dict, Any, Optional
 
 async def query_model(
     model_config: Dict[str, str],
-    messages: List[Dict[str, str]],
-    timeout: float = None  # Will use model-specific timeout or default
+    messages: List[Dict[str, str]]
 ) -> Optional[Dict[str, Any]]:
     """
     Query a single model via Flask API.
@@ -16,14 +15,10 @@ async def query_model(
     Args:
         model_config: Dict with 'model_name' and 'flask_url' keys
         messages: List of message dicts with 'role' and 'content'
-        timeout: Request timeout in seconds (uses model config or 180s default)
 
     Returns:
         Response dict with 'content' and 'duration_seconds', or None if failed
     """
-    # Use model-specific timeout if available, otherwise use provided or default
-    if timeout is None:
-        timeout = model_config.get('timeout', 180.0)
     
     flask_url = model_config['flask_url']
     chat_endpoint = f"{flask_url}/chat"
@@ -39,7 +34,7 @@ async def query_model(
     start_time = time.time()
     
     try:
-        async with httpx.AsyncClient(timeout=timeout) as client:
+        async with httpx.AsyncClient() as client:
             response = await client.post(
                 chat_endpoint,
                 headers=headers,

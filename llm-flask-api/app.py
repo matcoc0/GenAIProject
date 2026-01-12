@@ -10,7 +10,7 @@ load_dotenv()
 # Configuration
 OLLAMA_BASE_URL = os.getenv('OLLAMA_BASE_URL', 'http://localhost:11434')
 MODEL_NAME = os.getenv('MODEL_NAME', 'llama3.2:1b') # change model if no model have been chosen
-NGROK_API_URL = "http://ngrok:4040/api/tunnels"
+NGROK_API_URL = "http://localhost:4040/api/tunnels"
 
 app = Flask(__name__)
 
