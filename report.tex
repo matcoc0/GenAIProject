@@ -1,0 +1,293 @@
+\documentclass[12pt,a4paper]{article}
+
+% --------------------
+% Essential packages
+% --------------------
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{setspace}
+\usepackage[hidelinks]{hyperref}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{cite}
+\usepackage{titlesec}
+
+% --------------------
+% Global formatting
+% --------------------
+\setstretch{1.15}
+\setlength{\parskip}{0.4em}
+\setlength{\parindent}{0pt}
+
+% --------------------
+% Section titles
+% --------------------
+\titleformat{\section}
+  {\normalfont\Large\bfseries}{\thesection}{1em}{}
+
+\titleformat{\subsection}
+  {\normalfont\large\bfseries}{\thesubsection}{1em}{}
+
+\titlespacing*{\section}{0pt}{1.5em}{0.8em}
+\titlespacing*{\subsection}{0pt}{1.2em}{0.6em}
+
+% --------------------
+% PDF metadata
+% --------------------
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  citecolor=black,
+  urlcolor=black,
+  pdftitle={LLM Council -- Local Deployment},
+  pdfauthor={Mathieu Cowan et al.}
+}
+
+% =========================================================
+% Document
+% =========================================================
+\begin{document}
+
+% =========================================================
+% Title page
+% =========================================================
+\begin{titlepage}
+    \centering
+    \vspace*{3cm}
+
+    {\LARGE \textbf{Final Project Report -- LLM Council Local Deployment}\par}
+    \vspace{0.8cm}
+    {\Large Distributed Multi-LLM Reasoning with Local Inference\par}
+
+    \vspace{2cm}
+
+    {\large
+    Sacha CROCHET \\
+    Eliott COUTAZ \\
+    Julien DE VOS \\
+    Mathieu COWAN \\
+    Adrien DE MAILLY NESLE
+    \par}
+
+    \vspace{0.5cm}
+
+    {\large
+    ESILV -- A5
+    \par}
+
+    \vfill
+
+    {\large
+    Academic Year 2025--2026
+    \par}
+
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+% =========================================================
+\section{Git Repository}
+
+The source code of the \textit{LLM Council Local Deployment} project is available at the following URL:
+
+\url{https://github.com/matcoc0/LLM-Council-Local-Deployment}
+
+The Git repository contains the complete implementation of the project, including backend services, a frontend demonstration interface, configuration files, and documentation. The main elements of the repository are:
+
+\begin{itemize}
+    \item \texttt{README.md}  
+    Provides a global overview of the project, installation instructions, environment configuration, and steps to run the LLM Council demonstration.
+
+    \item Backend source code  
+    Python files implementing the core logic of the LLM Council, including:
+    \begin{itemize}
+        \item orchestration of the three-stage workflow (first opinions, review and ranking, chairman synthesis),
+        \item REST API endpoints enabling communication between distributed services,
+        \item configuration of local LLM models and service URLs.
+    \end{itemize}
+
+    \item Frontend application  
+    A lightweight user interface designed to demonstrate the behavior of the LLM Council, allowing inspection of individual model responses, review rankings, and the final synthesized answer.
+
+    \item Configuration files  
+    Environment and configuration files defining model identifiers, service endpoints, and execution parameters required for local deployment.
+
+    \item Documentation  
+    Additional README files describing the system architecture, design choices, and usage instructions.
+\end{itemize}
+
+% =========================================================
+\section{Context}
+
+Large Language Models (LLMs) are commonly used in isolation, often through proprietary cloud-based services. While this approach is easy to deploy, it presents several limitations, including dependence on external infrastructures, limited transparency regarding intermediate reasoning steps, and a lack of diversity in generated responses.
+
+The \textit{LLM Council} concept, initially proposed by Andrej Karpathy, addresses these limitations by introducing a collaborative architecture. Multiple language models independently answer a user query, subsequently review and rank the responses produced by other models, and finally, a dedicated model referred to as the \textit{Chairman} synthesizes all information into a single final answer.
+
+The original implementation relied on cloud-based APIs. The objective of this project is to refactor and extend this approach in order to design a \textbf{fully local, distributed, and autonomous LLM Council}.
+
+% =========================================================
+\section{Original Repository Description}
+
+The original repository provided an initial implementation of the LLM Council concept, including the logical stages of the workflow (multiple response generation, cross-review, and final synthesis). However, this implementation suffered from several limitations:
+
+\begin{itemize}
+    \item Dependence on cloud-based services (OpenRouter)
+    \item Lack of a truly distributed deployment
+    \item Weak separation of model responsibilities
+    \item Architecture not well suited for local execution
+\end{itemize}
+
+As a result, the initial project primarily served as a proof of concept, without guarantees of reproducibility or independence from external services.
+
+% =========================================================
+\section{Project Objectives}
+
+The main objectives of this project are:
+
+\begin{itemize}
+    \item Remove all dependencies on cloud-based APIs
+    \item Deploy all LLMs locally
+    \item Design a distributed architecture based on REST communications
+    \item Clearly separate the roles of Council models and the Chairman model
+    \item Implement a complete three-stage workflow:
+    \begin{itemize}
+        \item First opinions
+        \item Review and ranking
+        \item Chairman synthesis
+    \end{itemize}
+    \item Provide an interface allowing users to inspect intermediate outputs
+\end{itemize}
+
+% =========================================================
+\section{Project Contributions}
+
+The main contributions of this project are:
+
+\begin{itemize}
+    \item Complete refactoring of the backend to support local LLM execution
+    \item Implementation of a modular and distributed architecture
+    \item Development of an orchestrator managing the entire Council workflow
+    \item Explicit separation between Council LLMs and the Chairman LLM
+    \item Development of a demonstration frontend to visualize all stages
+    \item Clear and structured documentation facilitating setup and demonstration
+\end{itemize}
+
+% =========================================================
+\section{Backend Architecture and Models}
+
+\subsection{Overall Architecture}
+
+The backend relies on a modular architecture composed of multiple independent services communicating through REST APIs:
+
+\begin{itemize}
+    \item Council LLMs: generation of initial responses and participation in the review stage
+    \item Chairman LLM: final synthesis only
+    \item Flask API: orchestration of the different workflow stages
+    \item Storage of conversations and intermediate outputs
+\end{itemize}
+
+This organization enables distributed execution across multiple machines and facilitates future system extensions.
+
+\textbf{[Global backend architecture]}
+
+% =========================================================
+\subsection{Council Models and Technical Choices}
+
+The models composing the \textit{LLM Council} were selected to ensure diversity of reasoning while remaining compatible with local execution on limited hardware resources.
+
+\begin{itemize}
+    \item \textbf{LLaMA 3.2 (1B)} \\
+    A lightweight model favoring fast inference. It is used to produce concise initial responses, contributing to low overall system latency.
+
+    \item \textbf{Gemma 3 (4B)} \\
+    A mid-sized model providing more structured reasoning capabilities. It produces more detailed responses while maintaining a reasonable computational cost.
+
+    \item \textbf{Qwen 2.5 (1.5B)} \\
+    A compact model with solid general-purpose performance. It contributes to diversity in phrasing and reasoning approaches.
+\end{itemize}
+
+Each Council LLM runs as an independent service exposing a REST API.
+
+% =========================================================
+\subsection{Chairman Model}
+
+\begin{itemize}
+    \item \textbf{DeepSeek-R1 (7B)} \\
+    A model dedicated exclusively to final synthesis. Its stronger reasoning capabilities make it suitable for aggregating responses and rankings produced by the Council. It is deployed as a separate service, in accordance with project requirements.
+\end{itemize}
+
+% =========================================================
+\section{Dockerized Implementation}
+
+The project is designed to be executed reproducibly through a clear separation of components. Configuration relies on environment variables and independent services, facilitating local deployment and controlled demonstrations.
+
+This approach enables:
+\begin{itemize}
+    \item simplified service startup
+    \item clear dependency isolation
+    \item future extension to real multi-machine deployments
+\end{itemize}
+
+\textbf{[Running services and containers]}
+
+% =========================================================
+\section{Solution Evaluation}
+
+The evaluation of the solution is based on a complete functional demonstration:
+
+\begin{itemize}
+    \item Generation of initial responses by Council LLMs
+    \item Anonymous review and ranking phase
+    \item Final synthesis produced by the Chairman
+    \item Visualization of intermediate outputs through the frontend
+\end{itemize}
+
+The system satisfies the following criteria:
+
+\begin{itemize}
+    \item Fully functional end-to-end workflow
+    \item Clear and modular architecture
+    \item Effective separation of responsibilities
+    \item Usable and clear documentation
+\end{itemize}
+
+\textbf{[Complete workflow execution in the user interface]}
+
+% =========================================================
+\section{Generative AI Usage Statement}
+
+Generative AI tools were used in this project in a limited and transparent manner.
+
+\begin{itemize}
+    \item \textbf{Frontend development}: Generative AI was used to assist in the creation of the frontend interface, whose sole purpose is to demonstrate and visualize the backend system.
+    \item \textbf{Documentation support}: Generative AI was used to help structure and optimize README files and technical documentation.
+\end{itemize}
+
+All generated content was systematically reviewed, validated, and adjusted by the team.
+
+All backend logic, architectural decisions, orchestration mechanisms, and optimizations were designed and implemented by the project team.
+
+% =========================================================
+\section{Future Work and Optimizations}
+
+Several improvements can be considered:
+
+\begin{itemize}
+    \item Deployment across multiple physical machines
+    \item Advanced monitoring (latency, model availability)
+    \item Performance dashboards
+    \item Graphical visualization of the Council workflow
+    \item Dynamic management of Council models
+    \item Improved ranking and synthesis strategies
+\end{itemize}
+
+% =========================================================
+\section{Conclusion}
+
+This project demonstrates the feasibility of a fully local, distributed, and transparent \textit{LLM Council}. By removing all cloud dependencies and implementing a modular architecture, the proposed solution enables greater reasoning diversity, full reproducibility, and improved understanding of internal mechanisms.
+
+Beyond its functional aspects, this project represents a concrete experience in the design and deployment of distributed artificial intelligence systems.
+
+\end{document}
