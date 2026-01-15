@@ -61,9 +61,9 @@ See [llm-flask-api/README.md](llm-flask-api/README.md) for detailed setup and us
 - Node.js and npm
 - [uv](https://docs.astral.sh/uv/) package manager
 - **Either:**
-  - [Docker](https://www.docker.com/) and Docker Compose (recommended for running LLM APIs)
-  - **Or:** [Ollama](https://ollama.ai/) installed and running locally
-- [ngrok](https://ngrok.com/) for exposing local APIs (included in Docker setup)
+  - [Docker](https://www.docker.com/) and Docker Compose (recommended for running LLM APIs).
+  - **Or:** [Ollama](https://ollama.ai/) installed and running locally.
+- [ngrok](https://ngrok.com/) for exposing local APIs (included in Docker setup).
 
 ### Setup Steps
 
@@ -89,8 +89,8 @@ See [llm-flask-api/README.md](llm-flask-api/README.md) for detailed setup and us
    ```
    
    To run multiple models, you'll need to:
-   - Create separate directories or modify the docker-compose.yml to run on different ports
-   - Use different ngrok tunnels for each instance
+   - Create separate directories or modify the docker-compose.yml to run on different ports.
+   - Use different ngrok tunnels for each instance.
    
    **Option B: Using Local Python Installation**
    
